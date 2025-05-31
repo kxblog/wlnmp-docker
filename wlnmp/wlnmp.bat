@@ -25,22 +25,23 @@ if not exist "%SERVER_ENV_FILE%" (
 )
 
 REM 3. 判断 SERVER_ENV_FILE 中是否存在 WLNMP_WWW_DIR 值
-set "WLNMP_WWW_DIR="
+set "WIN_WLNMP_WWW_DIR="
 REM 添加 eol=# 选项，跳过以 # 开头的注释行
 for /f "usebackq delims== tokens=1,2 eol=#" %%a in ("%SERVER_ENV_FILE%") do (
-    if "%%a"=="WLNMP_WWW_DIR" (
-        set "WLNMP_WWW_DIR=%%b"
+    if "%%a"=="WIN_WLNMP_WWW_DIR" (
+        set "WIN_WLNMP_WWW_DIR=%%b"
     )
 )
-if not defined WLNMP_WWW_DIR (
-    echo 错误：%SERVER_ENV_FILE% 中不存在 WLNMP_WWW_DIR 值。
+if not defined WIN_WLNMP_WWW_DIR (
+    echo 错误：%SERVER_ENV_FILE% 中不存在 WIN_WLNMP_WWW_DIR 值。
     exit /b 1
 )
-if not exist "%WLNMP_WWW_DIR%" (
-    echo 错误：WLNMP_WWW_DIR 值 %WLNMP_WWW_DIR% 不是一个有效的目录。
+if not exist "%WIN_WLNMP_WWW_DIR%" (
+    echo 错误：WIN_WLNMP_WWW_DIR 值 %WIN_WLNMP_WWW_DIR% 不是一个有效的目录。
     exit /b 1
 )
-set "WLNMP_WWW_DIR=%WLNMP_WWW_DIR%"
+set "WIN_WLNMP_WWW_DIR=%WIN_WLNMP_WWW_DIR%"
+set "WLNMP_WWW_DIR=%WIN_WLNMP_WWW_DIR%"
 
 REM 4. 设置 WLNMP_RUNTIME_DIR 环境变量，不存在则创建目录
 set "WLNMP_RUNTIME_DIR=%WLNMP_ROOT_DIR%\runtime"

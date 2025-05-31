@@ -14,10 +14,11 @@ main() {
     [ -f "$server_env_file" ] || { echo "错误：环境文件 $server_env_file 不存在" >&2; exit 1; }
 
     # 提取并验证网站目录
-    export WLNMP_WWW_DIR=$(grep -E '^[[:space:]]*WLNMP_WWW_DIR=' "$server_env_file" | cut -d'=' -f2- | tr -d '[:space:]')
-    WLNMP_WWW_DIR=$(eval echo "$WLNMP_WWW_DIR")  # 新增行：解析~符号
-    [ -n "$WLNMP_WWW_DIR" ] || { echo "错误：缺少 WLNMP_WWW_DIR 配置" >&2; exit 1; }
-    [ -d "$WLNMP_WWW_DIR" ] || { echo "错误：网站目录不存在 $WLNMP_WWW_DIR" >&2; exit 1; }
+    export LINUX_WLNMP_WWW_DIR=$(grep -E '^[[:space:]]*LINUX_WLNMP_WWW_DIR=' "$server_env_file" | cut -d'=' -f2- | tr -d '[:space:]')
+    LINUX_WLNMP_WWW_DIR=$(eval echo "$LINUX_WLNMP_WWW_DIR")  # 新增行：解析~符号
+    [ -n "$LINUX_WLNMP_WWW_DIR" ] || { echo "错误：缺少 LINUX_WLNMP_WWW_DIR 配置" >&2; exit 1; }
+    [ -d "$LINUX_WLNMP_WWW_DIR" ] || { echo "错误：网站目录不存在 $LINUX_WLNMP_WWW_DIR" >&2; exit 1; }
+    export WLNMP_WWW_DIR="$LINUX_WLNMP_WWW_DIR"  # 新增行：设置全局变量
 
     # 3. 准备运行时目录
     export WLNMP_RUNTIME_DIR="${WLNMP_ROOT_DIR}/runtime"
