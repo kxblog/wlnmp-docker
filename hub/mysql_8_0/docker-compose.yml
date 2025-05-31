@@ -1,0 +1,18 @@
+services:
+  mysql_8_0:
+    build: ${WLNMP_ROOT_DIR}/hub/mysql_8_0
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_8_0_ROOT_PASSWORD}
+    volumes:
+      - ${WLNMP_SERVER_DIR}/mysql_8_0:/wlnmp/mysql_8_0
+      - type: volume
+        source: mysql_8_0_volume
+        target: /var/lib/mysql
+volumes:
+  mysql_8_0_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${WLNMP_RUNTIME_DIR}/${WLNMP_SERVER_NAME}/mysql_8_0
+      o: bind

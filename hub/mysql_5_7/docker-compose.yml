@@ -1,0 +1,18 @@
+services:
+  mysql_5_7:
+    build: ${WLNMP_ROOT_DIR}/hub/mysql_5_7
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_5_7_ROOT_PASSWORD}
+    volumes:
+      - ${WLNMP_SERVER_DIR}/mysql_5_7:/wlnmp/mysql_5_7
+      - type: volume
+        source: mysql_5_7_volume
+        target: /var/lib/mysql
+volumes:
+  mysql_5_7_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${WLNMP_RUNTIME_DIR}/${WLNMP_SERVER_NAME}/mysql_5_7
+      o: bind

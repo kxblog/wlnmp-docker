@@ -1,0 +1,11 @@
+# 这是一个基础的docker-compose.yml文件
+# 用于配置Docker compose的服务名和数据卷
+name: ${WLNMP_SERVER_NAME}
+# services:
+volumes:
+  www_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${WLNMP_WWW_DIR}
+      o: bind

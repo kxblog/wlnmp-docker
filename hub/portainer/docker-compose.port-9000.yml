@@ -1,0 +1,4 @@
+services:
+  portainer:
+    ports:
+      - ${WLNMP_CP_HTTP_PORT}:9000

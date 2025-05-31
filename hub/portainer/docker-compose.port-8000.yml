@@ -1,0 +1,4 @@
+services:
+  portainer:
+    ports:
+      - ${WLNMP_CP_AGENT_PORT}:8000

@@ -1,0 +1,15 @@
+services:
+  composer2:
+    image: composer:2
+    volumes:
+      # 代码卷
+      - type: volume
+        source: www_volume
+        target: /wlnmp/www
+    working_dir: /wlnmp/www
+    environment:
+      - COMPOSER_MIRROR_PATH_REPOS=1
+      # 配置阿里云 Composer 镜像源
+      - COMPOSER_REPO_PACKAGIST=https://mirrors.aliyun.com/composer/
+    # 使用 profiles 特性，标记为工具类服务，不会自动启动
+    profiles: ["tools"]

@@ -1,0 +1,9 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    volumes:
+      - portainer_data:/data
+volumes:
+  portainer_data:

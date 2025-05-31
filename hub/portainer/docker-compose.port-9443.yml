@@ -1,0 +1,4 @@
+services:
+  portainer:
+    ports:
+      - ${WLNMP_CP_HTTPS_PORT}:9443

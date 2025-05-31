@@ -1,0 +1,9 @@
+services:
+  node12:
+    build: ${WLNMP_ROOT_DIR}/hub/node12
+    volumes:
+      # 代码卷
+      - type: volume
+        source: www_volume
+        target: /wlnmp/www
+    working_dir: /wlnmp/www

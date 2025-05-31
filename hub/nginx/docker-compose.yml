@@ -1,0 +1,19 @@
+# NGINX服务配置
+services:
+  nginx:
+    build: ${WLNMP_ROOT_DIR}/hub/nginx
+    restart: always
+    volumes:
+      # 代码卷
+      - type: volume
+        source: www_volume
+        target: /wlnmp/www
+      # 映射配置文件
+      - type: bind
+        source: ${WLNMP_SERVER_DIR}/nginx
+        target: /wlnmp/nginx
+        read_only: true
+      # 映射日志文件
+      - type: bind
+        source: ${WLNMP_RUNTIME_DIR}/${WLNMP_SERVER_NAME}/nginx/logs
+        target: /var/log/nginx

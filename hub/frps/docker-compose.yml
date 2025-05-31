@@ -1,0 +1,10 @@
+services:
+  frpc:
+    image: snowdreamtech/frps:alpine
+    restart: always
+    volumes:
+      # 映射配置文件
+      - type: bind
+        source: ${WLNMP_SERVER_DIR}/frpc/frps.toml
+        target: /etc/frp/frps.toml
+        read_only: true

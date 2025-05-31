@@ -1,0 +1,17 @@
+services:
+  node22:
+    build: ${WLNMP_ROOT_DIR}/hub/node22
+    volumes:
+      # 代码卷
+      - type: volume
+        source: www_volume
+        target: /wlnmp/www
+      # PNPM 缓存卷
+      - pnpm-store:/root/.pnpm-store
+    working_dir: /wlnmp/www
+    environment:
+      # 配置环境变量，指定 PNPM 缓存目录
+      PNPM_HOME: /root/.pnpm-store
+# 新增卷定义
+volumes:
+  pnpm-store:

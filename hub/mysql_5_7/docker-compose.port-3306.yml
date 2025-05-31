@@ -1,0 +1,4 @@
+services:
+  mysql_5_7:
+    ports:
+      - ${MYSQL_5_7_HOST_PORT}:3306

@@ -1,0 +1,13 @@
+services:
+  php_8_2:
+    build: ${WLNMP_ROOT_DIR}/hub/php_8_2
+    volumes:
+      # 代码卷
+      - type: volume
+        source: www_volume
+        target: /wlnmp/www
+      # 映射配置文件
+      - type: bind
+        source: ${WLNMP_SERVER_DIR}/php_8_2
+        target: /wlnmp/php_8_2
+        read_only: true
