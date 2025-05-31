@@ -18,7 +18,7 @@ main() {
     LINUX_WLNMP_WWW_DIR=$(eval echo "$LINUX_WLNMP_WWW_DIR")  # 新增行：解析~符号
     [ -n "$LINUX_WLNMP_WWW_DIR" ] || { echo "错误：缺少 LINUX_WLNMP_WWW_DIR 配置" >&2; exit 1; }
     [ -d "$LINUX_WLNMP_WWW_DIR" ] || { echo "错误：网站目录不存在 $LINUX_WLNMP_WWW_DIR" >&2; exit 1; }
-    export WLNMP_WWW_DIR="$LINUX_WLNMP_WWW_DIR"  # 新增行：设置全局变量
+    export WLNMP_WWW_DIR="${LINUX_WLNMP_WWW_DIR}"  # 新增行：设置全局变量
 
     # 3. 准备运行时目录
     export WLNMP_RUNTIME_DIR="${WLNMP_ROOT_DIR}/runtime"
