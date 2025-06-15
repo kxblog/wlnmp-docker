@@ -123,7 +123,7 @@ Windows
         \___ Docker Linux VM -- Containers
 ```
 
-解决办法：
+解决办法一：
 
 1. 停止并清理容器及数据卷
 ```
@@ -132,4 +132,46 @@ docker-compose.bat/sh down -v
 2. 重新启动容器
 ```
 docker-compose.bat/sh up -d
+```
+
+解决方法二：
+
+1. 先查看 wlnmp_www_volume 信息 `device` 位置（如果你明确知道该数据卷之前源数据是哪里）
+```
+docker volume inspect wlnmp_www_volume
+```
+得到如下：
+```
+[
+    {
+        "CreatedAt": "2025-06-15T04:55:45Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "e8e55f11c0925598740ec717a63eb2c3828917d082b9563e2ca48169bc27ee5e",
+            "com.docker.compose.project": "wlnmp",
+            "com.docker.compose.version": "2.35.1",
+            "com.docker.compose.volume": "www_volume"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/wlnmp_www_volume/_data",
+        "Name": "wlnmp_www_volume",
+        "Options": {
+            "device": "/home/bobo/wwwroot",
+            "o": "bind",
+            "type": "none"
+        },
+        "Scope": "local"
+    }
+]
+```
+
+2. 以上信息可以知道 `wlnmp_www_volume` 数据卷的源目录是 "/home/bobo/wwwroot" 目录
+
+3. 进入 WSL2 的 `Ubuntu` 子系统手动挂载:
+```
+# 创建与错误信息中相同的hash目录
+# sudo mkdir -p /mnt/wsl/docker-desktop-bind-mounts/Ubuntu/{hash}
+sudo mkdir -p /mnt/wsl/docker-desktop-bind-mounts/Ubuntu/948088fd1a42b686ea7be15ddcdc8ba294ee5d38a8ab7ef920b4d4261872031b
+# 挂载
+# sudo mount --bind {device} /mnt/wsl/docker-desktop-bind-mounts/Ubuntu/{hash}
+sudo mount --bind /home/bobo/wwwroot /mnt/wsl/docker-desktop-bind-mounts/Ubuntu/948088fd1a42b686ea7be15ddcdc8ba294ee5d38a8ab7ef920b4d4261872031b
 ```
