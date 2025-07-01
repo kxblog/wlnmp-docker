@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.1-fpm-alpine
 
 # PHP扩展目录，自定义扩展文件放到这里面
 # COPY xxx.so /usr/local/lib/php/extensions/
@@ -24,7 +24,7 @@ RUN cp /etc/apk/repositories /etc/apk/repositories.bak; \
         && pecl channel-update pecl.php.net \
         && pecl install -n igbinary \
         && docker-php-ext-enable igbinary \
-        && pecl install -n redis-5.3.2 --configureoptions 'enable-redis-igbinary="yes"' \
+        && pecl install -n redis-5.1.1 --configureoptions 'enable-redis-igbinary="yes"' \
         && docker-php-ext-enable redis;
     # 启用自定义扩展 - 对应上面的 COPY xxx.so /usr/local/lib/php/extensions/
     # echo "zend_extension = /usr/local/lib/php/extensions/xxx.so" >> /usr/local/etc/php/conf.d/docker-php-ext-ioncube.ini; \

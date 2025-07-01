@@ -63,6 +63,7 @@ set "WLNMP_SERVICE_BASE=%WLNMP_ROOT_DIR%\hub\base"
 set "WLNMP_SERVICE_NGINX=%WLNMP_ROOT_DIR%\hub\nginx"
 set "WLNMP_SERVICE_MYSQL_5_7=%WLNMP_ROOT_DIR%\hub\mysql_5_7"
 set "WLNMP_SERVICE_MYSQL_8_0=%WLNMP_ROOT_DIR%\hub\mysql_8_0"
+set "WLNMP_SERVICE_PHP_7_1=%WLNMP_ROOT_DIR%\hub\php_7_1"
 set "WLNMP_SERVICE_PHP_7_2=%WLNMP_ROOT_DIR%\hub\php_7_2"
 set "WLNMP_SERVICE_PHP_7_3=%WLNMP_ROOT_DIR%\hub\php_7_3"
 set "WLNMP_SERVICE_PHP_7_4=%WLNMP_ROOT_DIR%\hub\php_7_4"
@@ -70,7 +71,7 @@ set "WLNMP_SERVICE_PHP_8_2=%WLNMP_ROOT_DIR%\hub\php_8_2"
 set "WLNMP_SERVICE_REDIS=%WLNMP_ROOT_DIR%\hub\redis"
 
 REM 6. 初始化 docker compose 指令
-set "DOCKER_COMMAND=docker compose --project-directory %WLNMP_ROOT_DIR% -f %WLNMP_SERVICE_BASE%\docker-compose.yml -f %WLNMP_SERVICE_NGINX%\docker-compose.yml -f %WLNMP_SERVICE_MYSQL_5_7%\docker-compose.yml -f %WLNMP_SERVICE_MYSQL_8_0%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_2%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_3%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_4%\docker-compose.yml -f %WLNMP_SERVICE_PHP_8_2%\docker-compose.yml -f %WLNMP_SERVICE_REDIS%\docker-compose.yml"
+set "DOCKER_COMMAND=docker compose --project-directory %WLNMP_ROOT_DIR% -f %WLNMP_SERVICE_BASE%\docker-compose.yml -f %WLNMP_SERVICE_NGINX%\docker-compose.yml -f %WLNMP_SERVICE_MYSQL_5_7%\docker-compose.yml -f %WLNMP_SERVICE_MYSQL_8_0%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_1%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_2%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_3%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_4%\docker-compose.yml -f %WLNMP_SERVICE_PHP_8_2%\docker-compose.yml -f %WLNMP_SERVICE_REDIS%\docker-compose.yml"
 
 REM 7. 判断每个 service 对应的 env 文件是否存在
 set "BASE_ENV_FILE=%WLNMP_SERVER_DIR%\base\.base.env"
