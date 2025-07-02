@@ -69,9 +69,10 @@ set "WLNMP_SERVICE_PHP_7_3=%WLNMP_ROOT_DIR%\hub\php_7_3"
 set "WLNMP_SERVICE_PHP_7_4=%WLNMP_ROOT_DIR%\hub\php_7_4"
 set "WLNMP_SERVICE_PHP_8_2=%WLNMP_ROOT_DIR%\hub\php_8_2"
 set "WLNMP_SERVICE_REDIS=%WLNMP_ROOT_DIR%\hub\redis"
+set "WLNMP_SERVICE_MEMCACHED=%WLNMP_ROOT_DIR%\hub\memcached"
 
 REM 6. 初始化 docker compose 指令
-set "DOCKER_COMMAND=docker compose --project-directory %WLNMP_ROOT_DIR% -f %WLNMP_SERVICE_BASE%\docker-compose.yml -f %WLNMP_SERVICE_NGINX%\docker-compose.yml -f %WLNMP_SERVICE_MYSQL_5_7%\docker-compose.yml -f %WLNMP_SERVICE_MYSQL_8_0%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_1%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_2%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_3%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_4%\docker-compose.yml -f %WLNMP_SERVICE_PHP_8_2%\docker-compose.yml -f %WLNMP_SERVICE_REDIS%\docker-compose.yml"
+set "DOCKER_COMMAND=docker compose --project-directory %WLNMP_ROOT_DIR% -f %WLNMP_SERVICE_BASE%\docker-compose.yml -f %WLNMP_SERVICE_NGINX%\docker-compose.yml -f %WLNMP_SERVICE_MYSQL_5_7%\docker-compose.yml -f %WLNMP_SERVICE_MYSQL_8_0%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_1%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_2%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_3%\docker-compose.yml -f %WLNMP_SERVICE_PHP_7_4%\docker-compose.yml -f %WLNMP_SERVICE_PHP_8_2%\docker-compose.yml -f %WLNMP_SERVICE_REDIS%\docker-compose.yml -f %WLNMP_SERVICE_MEMCACHED%\docker-compose.yml"
 
 REM 7. 判断每个 service 对应的 env 文件是否存在
 set "BASE_ENV_FILE=%WLNMP_SERVER_DIR%\base\.base.env"
@@ -95,6 +96,10 @@ if exist "%MYSQL_8_0_ENV_FILE%" (
 set "REDIS_ENV_FILE=%WLNMP_SERVER_DIR%\redis\.redis.env"
 if exist "%REDIS_ENV_FILE%" (
     set "DOCKER_COMMAND=!DOCKER_COMMAND! --env-file %REDIS_ENV_FILE%"
+)
+set "MEMCACHED_ENV_FILE=%WLNMP_SERVER_DIR%\memcached\.memcached.env"
+if exist "%MEMCACHED_ENV_FILE%" (
+    set "DOCKER_COMMAND=!DOCKER_COMMAND! --env-file %MEMCACHED_ENV_FILE%"
 )
 
 REM 8.1 判断 nginx 的 env 文件中是否存在 NGINX_HTTP_PORT 和 NGINX_HTTPS_PORT

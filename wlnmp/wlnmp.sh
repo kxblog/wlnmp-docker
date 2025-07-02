@@ -37,6 +37,8 @@ main() {
     local service_php_7_3="${WLNMP_ROOT_DIR}/hub/php_7_3"
     local service_php_7_4="${WLNMP_ROOT_DIR}/hub/php_7_4"
     local service_php_8_2="${WLNMP_ROOT_DIR}/hub/php_8_2"
+    local service_redis="${WLNMP_ROOT_DIR}/hub/redis"
+    local service_memcached="${WLNMP_ROOT_DIR}/hub/memcached"
     local docker_cmd=(
         docker compose 
         --project-directory "$WLNMP_ROOT_DIR"
@@ -49,6 +51,8 @@ main() {
         -f "${service_php_7_3}/docker-compose.yml"
         -f "${service_php_7_4}/docker-compose.yml"
         -f "${service_php_8_2}/docker-compose.yml"
+        -f "${service_redis}/docker-compose.yml"
+        -f "${service_memcached}/docker-compose.yml"
     )
 
     # 5. 添加环境文件
@@ -62,6 +66,10 @@ main() {
     [ -f "$mysql_5_7_env" ] && docker_cmd+=(--env-file "$mysql_5_7_env")
     docker_cmd+=(--env-file "${service_mysql_8_0}/.env")
     [ -f "$mysql_8_0_env" ] && docker_cmd+=(--env-file "$mysql_8_0_env")
+    local redis_env="${WLNMP_SERVER_DIR}/redis/.redis.env"
+    [ -f "$redis_env" ] && docker_cmd+=(--env-file "$redis_env")
+    local memcached_env="${WLNMP_SERVER_DIR}/memcached/.memcached.env"
+    [ -f "$memcached_env" ] && docker_cmd+=(--env-file "$memcached_env")
 
     # 6.1 端口配置检测
     local http_port="" https_port=""

@@ -23,12 +23,15 @@ RUN cp /etc/apk/repositories /etc/apk/repositories.bak; \
     apk add --no-cache autoconf automake make g++ \
         && pecl channel-update pecl.php.net \
         && pecl install -n igbinary \
-        && docker-php-ext-enable igbinary \
-        # 安装兼容的Redis扩展版本
-        && pecl install -n redis \
-        # 启用 Redis 扩展并启用 igbinary 支持
-        && docker-php-ext-enable redis --ini-name redis.ini \
-        && echo 'redis.serializer=igbinary' >> /usr/local/etc/php/conf.d/redis.ini;
+        && docker-php-ext-enable igbinary; \
+        # 手动编译redis扩展(php7.4以上版本,用 pecl install redis命令启用igbinary没成功)
+        pecl download redis \
+        && tar -zxvf redis-6.2.0.tgz \
+        && cd redis-6.2.0 \
+        && phpize \
+        && ./configure --with-php-config=/usr/local/bin/php-config --enable-redis-igbinary; \
+        make && make install; \
+        docker-php-ext-enable redis;
     # 启用自定义扩展 - 对应上面的 COPY xxx.so /usr/local/lib/php/extensions/
     # echo "zend_extension = /usr/local/lib/php/extensions/xxx.so" >> /usr/local/etc/php/conf.d/docker-php-ext-ioncube.ini; \
 

@@ -1,0 +1,7 @@
+# memcached服务配置
+services:
+  memcached:
+    image: memcached:alpine
+    restart: unless-stopped
+    ports:
+      - ${MEMCACHED_HOST_PORT}:11211
