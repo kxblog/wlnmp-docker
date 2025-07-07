@@ -19,6 +19,13 @@ RUN cp /etc/apk/repositories /etc/apk/repositories.bak; \
         freetype-dev libjpeg-turbo-dev libpng-dev \
         && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/user/include/ \
         && docker-php-ext-install -j$(nproc) gd; \
+    # 安装 memcached 扩展
+    apk add --no-cache autoconf automake make g++ \
+        && pecl install memcache-4.0.5.2 \
+        && docker-php-ext-enable memcache; \
+    apk add --no-cache libmemcached-dev zlib-dev \
+        && pecl install memcached-3.1.5 \
+        && docker-php-ext-enable memcached; \
     # 安装 Redis 扩展
     apk add --no-cache autoconf automake make g++ \
         && pecl channel-update pecl.php.net \
