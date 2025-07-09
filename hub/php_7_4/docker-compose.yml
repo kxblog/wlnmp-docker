@@ -1,6 +1,9 @@
 services:
   php_7_4:
-    build: ${WLNMP_ROOT_DIR}/hub/php_7_4
+    build:
+      context: ${WLNMP_ROOT_DIR}/hub/php_7_4
+      args:
+          TZ: ${WLNMP_TIMEZONE}
     volumes:
       # 代码卷
       - type: volume

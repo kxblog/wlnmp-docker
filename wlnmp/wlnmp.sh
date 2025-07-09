@@ -43,6 +43,7 @@ main() {
         docker compose 
         --project-directory "$WLNMP_ROOT_DIR"
         -f "${service_base}/docker-compose.yml"
+        --env-file "${service_base}/.base.env"
         -f "${service_nginx}/docker-compose.yml"
         -f "${service_mysql_5_7}/docker-compose.yml"
         -f "${service_mysql_8_0}/docker-compose.yml"

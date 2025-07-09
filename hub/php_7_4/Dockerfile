@@ -1,5 +1,11 @@
 FROM php:7.4-fpm-buster
 
+# 声明构建参数
+ARG TZ
+# 将构建参数转为环境变量（可选）
+ENV TZ=$TZ
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # PHP扩展目录，自定义扩展文件放到这里面
 # COPY xxx.so /usr/local/lib/php/extensions/
 
