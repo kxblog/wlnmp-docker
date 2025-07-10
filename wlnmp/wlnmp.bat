@@ -97,6 +97,7 @@ set "REDIS_ENV_FILE=%WLNMP_SERVER_DIR%\redis\.redis.env"
 if exist "%REDIS_ENV_FILE%" (
     set "DOCKER_COMMAND=!DOCKER_COMMAND! --env-file %REDIS_ENV_FILE%"
 )
+set "DOCKER_COMMAND=!DOCKER_COMMAND! --env-file %WLNMP_SERVICE_MEMCACHED%\.env"
 set "MEMCACHED_ENV_FILE=%WLNMP_SERVER_DIR%\memcached\.memcached.env"
 if exist "%MEMCACHED_ENV_FILE%" (
     set "DOCKER_COMMAND=!DOCKER_COMMAND! --env-file %MEMCACHED_ENV_FILE%"
